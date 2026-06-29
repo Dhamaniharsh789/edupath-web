@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduPath AI — Student Counselling Request</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f0f4f8;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .page-wrapper {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  /* ── Header ── */
+  .brand {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.75rem;
+  }
+  .brand-icon {
+    width: 40px; height: 40px;
+    background: #032E61;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-icon svg { width: 22px; height: 22px; fill: #5DAF46; }
+  .brand-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #032E61;
+    letter-spacing: -0.5px;
+  }
+  .brand-name span { color: #5DAF46; }
+  .brand-tagline {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(3, 46, 97, 0.08);
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, #032E61 0%, #0AA1DF 100%);
+    padding: 1.75rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: #5DAF46;
+  }
+  .card-header h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+  }
+  .card-header p {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+  }
+
+  .card-body { padding: 2rem; }
+
+  /* ── Form ── */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group { margin-bottom: 1rem; }
+  .form-group:last-of-type { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.01em;
+  }
+  label .req { color: #ef4444; margin-left: 2px; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.65rem 0.875rem;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    color: #111827;
+    background: #fafafa;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    outline: none;
+    font-family: inherit;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: #0AA1DF;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(10, 161, 223, 0.12);
+  }
+  textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+  select { cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2rem;
+  }
+
+  /* ── Divider ── */
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #5DAF46;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.5rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+  }
+
+  /* ── Submit ── */
+  .submit-btn {
+    width: 100%;
+    padding: 0.875rem;
+    background: #032E61;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+  }
+  .submit-btn:hover { background: #0AA1DF; transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+  /* ── Footer ── */
+  .card-footer {
+    padding: 1rem 2rem;
+    background: #f9fafb;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-footer svg { width: 14px; height: 14px; flex-shrink: 0; fill: #5DAF46; }
+  .card-footer p { font-size: 0.75rem; color: #6b7280; line-height: 1.4; }
+
+  /* ── Info pills ── */
+  .info-pills {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.35rem 0.75rem;
+    background: #EEF8FF;
+    border: 1px solid #BAE6FD;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: #0369a1;
+    font-weight: 500;
+  }
+  .pill svg { width: 12px; height: 12px; fill: #0AA1DF; }
+
+  @media (max-width: 480px) {
+    .form-row { grid-template-columns: 1fr; }
+    .card-body { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- Brand -->
+  <div class="brand">
+    <div class="brand-logo">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="brand-name">Edu<span>Path</span> AI</span>
+    </div>
+    <p class="brand-tagline">Powered by Salesforce Agentforce · TechMatrix Consulting</p>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+
+    <div class="card-header">
+      <h1>Request a Counselling Session</h1>
+      <p>Our AI-powered counsellor will analyse your profile and prepare personalised program recommendations before your session.</p>
+    </div>
+
+    <div class="card-body">
+
+      <!-- Info pills -->
+      <div class="info-pills">
+        <span class="pill">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Response within 1 hour
+        </span>
+        <span class="pill">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          AI-matched recommendations
+        </span>
+        <span class="pill">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Secure & confidential
+        </span>
+      </div>
+
+      <!-- Salesforce Web-to-Case Form -->
+      <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DgK00000QjnnB" method="POST">
+
+        <input type="hidden" name="orgid" value="00DgK00000QjnnB">
+        <input type="hidden" name="retURL" value="edupath_thankyou.html">
+        <input type="hidden" name="origin" value="Web">
+        <input type="hidden" name="status" value="New">
+        <!-- Personal Info -->
+        <div class="section-label">Personal Information</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name <span class="req">*</span></label>
+            <input id="name" maxlength="80" name="name" type="text" placeholder="Priya Sharma" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input id="phone" maxlength="40" name="phone" type="tel" placeholder="+91 98765 43210" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address <span class="req">*</span></label>
+          <input id="email" maxlength="80" name="email" type="email" placeholder="priya.sharma@demo.edu" required />
+        </div>
+
+        <!-- Session Details -->
+        <div class="section-label">Session Details</div>
+
+        <div class="form-group">
+          <label for="subject">What would you like to discuss? <span class="req">*</span></label>
+          <input id="subject" maxlength="80" name="subject" type="text"
+            placeholder="e.g. Program recommendations for AI Engineering career" required />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Additional details</label>
+          <textarea id="description" name="description"
+            placeholder="Share your current academic background, career goals, or any specific questions you have for the counsellor..."></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" name="submit" class="submit-btn">
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          Submit Counselling Request
+        </button>
+
+      </form>
+    </div>
+
+    <div class="card-footer">
+      <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <p>Your request will automatically create a case in our system. An EduPath counsellor will be assigned and will contact you within 1 hour.</p>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
