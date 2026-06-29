@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduPath AI — Request Received</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f0f4f8;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .wrapper {
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+  }
+
+  /* ── Brand ── */
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+  }
+  .brand-icon {
+    width: 40px; height: 40px;
+    background: #032E61;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-icon svg { width: 22px; height: 22px; fill: #5DAF46; }
+  .brand-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #032E61;
+  }
+  .brand-name span { color: #5DAF46; }
+
+  /* ── Card ── */
+  .card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(3, 46, 97, 0.08);
+    overflow: hidden;
+    padding: 3rem 2.5rem 2.5rem;
+    position: relative;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #032E61, #5DAF46);
+  }
+
+  /* ── Success icon ── */
+  .success-icon {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, #5DAF46, #0AA1DF);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .success-icon svg {
+    width: 40px; height: 40px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #032E61;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* ── What happens next ── */
+  .next-steps {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+  .next-steps h3 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #5DAF46;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 0.875rem;
+  }
+  .step:last-child { margin-bottom: 0; }
+  .step-num {
+    width: 26px; height: 26px;
+    background: #032E61;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #5DAF46;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text strong {
+    display: block;
+    font-size: 0.875rem;
+    color: #111827;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .step-text span {
+    font-size: 0.8125rem;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+
+  /* ── SLA badge ── */
+  .sla-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.5rem 1rem;
+    background: #EEF8FF;
+    border: 1px solid #BAE6FD;
+    border-radius: 20px;
+    font-size: 0.8125rem;
+    color: #0369a1;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+  .sla-badge svg { width: 14px; height: 14px; fill: #0AA1DF; }
+
+  /* ── Footer ── */
+  .footer-text {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    line-height: 1.5;
+  }
+  .footer-text a { color: #0AA1DF; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- Brand -->
+  <div class="brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <span class="brand-name">Edu<span>Path</span> AI</span>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+
+    <!-- Success icon -->
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+
+    <h1>Request Received!</h1>
+    <p class="subtitle">
+      Your counselling session request has been submitted successfully. 
+      Our AI-powered system is already preparing personalised recommendations for you.
+    </p>
+
+    <!-- SLA badge -->
+    <div class="sla-badge">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      A counsellor will be assigned within 1 hour
+    </div>
+
+    <!-- What happens next -->
+    <div class="next-steps">
+      <h3>What happens next</h3>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Case Created Automatically</strong>
+          <span>Your request has been logged in our counselling system with a unique case number.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>Counsellor Assigned</strong>
+          <span>An available counsellor will be assigned to your case via our smart routing system.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>AI Profile Analysis</strong>
+          <span>Agentforce AI will analyse your profile and prepare ranked program recommendations.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">
+          <strong>Session & Recommendations</strong>
+          <span>Your counsellor will contact you with personalised program, scholarship, and career guidance.</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-text">
+      Powered by Salesforce Agentforce · TechMatrix Consulting<br>
+      <a href="edupath_web_to_case.html">← Submit another request</a>
+    </p>
+
+  </div>
+
+</div>
+
+</body>
+</html>
